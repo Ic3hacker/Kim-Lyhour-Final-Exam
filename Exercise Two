@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 // DiscountRate interface
 interface DiscountRate {
     double getServiceMemberDiscount();
@@ -93,12 +95,60 @@ class Sale {
         return serviceExpense + productExpense;
     }
     
+    public double getServiceDiscount() {
+        return serviceExpense * customer.getServiceMemberDiscount();
+    }
+    
+    public double getProductDiscount() {
+        return productExpense * customer.getProductMemberDiscount();
+    }
+    
     public void DisplayInfo() {
         System.out.println("Customer Name: " + customer.getCustomerName());
         System.out.println("Customer Type: " + customer.getCustomerType());
         System.out.println("Date: " + date);
         System.out.println("Service Expense: " + serviceExpense);
         System.out.println("Product Expense: " + productExpense);
+        System.out.println("Service Discount: " + getServiceDiscount());
+        System.out.println("Product Discount: " + getProductDiscount());
         System.out.println("Total Expense: " + getTotalExpense());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Input customer details
+        System.out.println("Enter customer name:");
+        String customerName = scanner.nextLine();
+        
+        System.out.println("Enter customer type (Premium, Gold, Silver, Normal):");
+        String customerType = scanner.nextLine();
+        
+        // Create customer object
+        Customer customer = new Customer(customerName, customerType);
+        
+        // Input sale details
+        System.out.println("Enter date (YYYY-MM-DD):");
+        String date = scanner.nextLine();
+        
+        System.out.println("Enter service expense:");
+        double serviceExpense = scanner.nextDouble();
+        
+        System.out.println("Enter product expense:");
+        double productExpense = scanner.nextDouble();
+        
+        // Create sale object
+        Sale sale = new Sale(customer, date);
+        sale.
+
+setServiceExpense(serviceExpense);
+        sale.setProductExpense(productExpense);
+        
+        // Display sale information
+        sale.DisplayInfo();
+        
+        scanner.close();
     }
 }
